@@ -1,0 +1,238 @@
+AllCops:
+  TargetRubyVersion: 2.5
+
+# Layout cops
+# https://docs.rubocop.org/rubocop/cops_layout.html
+
+Layout/ClosingHeredocIndentation:
+  Enabled: false
+
+Layout/EmptyLineAfterGuardClause:
+  Enabled: false
+
+Layout/EmptyLinesAroundAttributeAccessor:
+  Enabled: true
+
+Layout/EndOfLine:
+  EnforcedStyle: lf
+
+Layout/HashAlignment:
+  EnforcedColonStyle:
+    - key
+    - table
+  EnforcedHashRocketStyle:
+    - key
+    - table
+
+Layout/HeredocIndentation:
+  Enabled: false
+
+Layout/LineLength:
+  Max: 120
+
+Layout/SpaceAroundMethodCallOperator:
+  Enabled: true
+
+# Lint cops
+# https://docs.rubocop.org/rubocop/cops_lint.html
+
+Lint/BinaryOperatorWithIdenticalOperands:
+  Enabled: true
+
+Lint/DeprecatedOpenSSLConstant:
+  Enabled: true
+
+Lint/DuplicateElsifCondition:
+  Enabled: true
+
+Lint/DuplicateRequire:
+  Enabled: true
+
+Lint/DuplicateRescueException:
+  Enabled: true
+
+Lint/EmptyConditionalBody:
+  Enabled: true
+
+Lint/EmptyFile:
+  Enabled: true
+
+Lint/FloatComparison:
+  Enabled: true
+
+Lint/MissingSuper:
+  Enabled: false
+
+Lint/MixedRegexpCaptureTypes:
+  Enabled: false
+
+Lint/OutOfRangeRegexpRef:
+  Enabled: true
+
+Lint/RaiseException:
+  Enabled: true
+
+Lint/SelfAssignment:
+  Enabled: true
+
+Lint/StructNewOverride:
+  Enabled: true
+
+Lint/SuppressedException:
+  Enabled: true
+
+Lint/TopLevelReturnWithArgument:
+  Enabled: true
+
+Lint/TrailingCommaInAttributeDeclaration:
+  Enabled: true
+
+Lint/UnreachableLoop:
+  Enabled: true
+
+Lint/UselessMethodDefinition:
+  Enabled: false
+
+# Metrics cops
+# https://docs.rubocop.org/rubocop/cops_metrics.html
+
+Metrics/AbcSize:
+  Enabled: false
+
+Metrics/BlockLength:
+  Enabled: false
+
+Metrics/BlockNesting:
+  Enabled: false
+
+Metrics/ClassLength:
+  Enabled: false
+
+Metrics/CyclomaticComplexity:
+  Enabled: false
+
+Metrics/MethodLength:
+  Enabled: false
+
+Metrics/ModuleLength:
+  Enabled: false
+
+Metrics/ParameterLists:
+  Enabled: false
+
+Metrics/PerceivedComplexity:
+  Enabled: false
+
+# Style cops
+# https://docs.rubocop.org/rubocop/cops_style.html
+
+Style/AccessModifierDeclarations:
+  Enabled: false
+
+Style/AccessorGrouping:
+  Enabled: true
+
+Style/ArrayCoercion:
+  Enabled: true
+
+Style/BisectedAttrAccessor:
+  Enabled: true
+
+Style/BlockDelimiters:
+  Enabled: false
+
+Style/CaseLikeIf:
+  Enabled: true
+
+Style/CombinableLoops:
+  Enabled: true
+
+Style/Documentation:
+  Enabled: false
+
+Style/DoubleNegation:
+  Enabled: false
+
+Style/ExplicitBlockArgument:
+  Enabled: false
+
+Style/ExponentialNotation:
+  Enabled: true
+
+Style/GlobalStdStream:
+  Enabled: true
+
+Style/GuardClause:
+  Enabled: false
+
+Style/HashAsLastArrayItem:
+  Enabled: false
+
+Style/HashEachMethods:
+  Enabled: true
+
+Style/HashLikeCase:
+  Enabled: true
+
+Style/HashTransformKeys:
+  Enabled: true
+
+Style/HashTransformValues:
+  Enabled: true
+
+Style/IfUnlessModifier:
+  Enabled: false
+
+Style/KeywordParametersOrder:
+  Enabled: true
+
+Style/MultilineBlockChain:
+  Enabled: false
+
+Style/NumericLiterals:
+  Enabled: false
+
+Style/NumericPredicate:
+  Enabled: false
+
+Style/OptionalBooleanParameter:
+  Enabled: false
+
+Style/RedundantAssignment:
+  Enabled: true
+
+Style/RedundantFetchBlock:
+  Enabled: true
+
+Style/RedundantFileExtensionInRequire:
+  Enabled: true
+
+Style/RedundantRegexpCharacterClass:
+  Enabled: true
+
+Style/RedundantRegexpEscape:
+  Enabled: true
+
+Style/RedundantSelfAssignment:
+  Enabled: true
+
+Style/SafeNavigation:
+  Enabled: false
+
+Style/SingleArgumentDig:
+  Enabled: false
+
+Style/SlicingWithRange:
+  Enabled: false
+
+Style/SoleNestedConditional:
+  Enabled: false
+
+Style/StderrPuts:
+  Enabled: false
+
+Style/StringConcatenation:
+  Enabled: false
+
+Style/StringLiterals:
+  Enabled: false

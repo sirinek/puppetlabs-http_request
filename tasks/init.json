@@ -1,0 +1,52 @@
+{
+  "description": "Make a HTTP or HTTPS request.",
+  "input_method": "stdin",
+  "parameters": {
+    "base_url": {
+      "description": "The fully qualified URL scheme to make requests to.",
+      "type": "String[1]"
+    },
+    "body": {
+      "description": "The request body.",
+      "type": "Optional[String]"
+    },
+    "cacert": {
+      "description": "An absolute path to the CA certificate.",
+      "type": "Optional[String[1]]"
+    },
+    "cert": {
+      "description": "An absolute path to the client certificate.",
+      "type": "Optional[String[1]]"
+    },
+    "follow_redirects": {
+      "description": "If true, automatically follows redirects.",
+      "type": "Boolean",
+      "default": true
+    },
+    "headers": {
+      "description": "A map of headers to add to the payload.",
+      "type": "Optional[Hash[String, String]]"
+    },
+    "key": {
+      "description": "An absolute path to the RSA keypair.",
+      "type": "Optional[String[1]]"
+    },
+    "max_redirects": {
+      "description": "The maximum number of redirects to follow when follow_redirects is true.",
+      "type": "Integer[1]",
+      "default": 20
+    },
+    "method": {
+      "description": "The HTTP method to use.",
+      "type": "Enum[delete, get, post, put]",
+      "default": "get"
+    },
+    "path": {
+      "description": "The path to append to the base_url.",
+      "type": "Optional[String[1]]"
+    }
+  },
+  "files": [
+    "ruby_task_helper/files/task_helper.rb"
+  ]
+}

@@ -7,6 +7,7 @@
 1. [Parameters](#parameters)
 1. [Usage](#usage)
     - [Making a request](#making-a-request)
+    - [Making a JSON request](#making-a-json-request)
     - [Adding headers](#adding-headers)
     - [Adding a body](#adding-a-body)
 
@@ -28,9 +29,10 @@ This task requires Ruby to be installed on the target it runs on.
 
 ### `body`
 
-The request body.
+The request body. If json_endpoint is true, must be able representable as JSON.
+If json_endpoint is false, must be a string.
 
-- **Type:** `Optional[String]`
+- **Type:** `Optional[Data]`
 
 ### `cacert`
 
@@ -56,6 +58,14 @@ If `true`, automatically follows redirects.
 A map of headers to add to the payload.
 
 - **Type:** `Optional[Hash[String, String]]`
+
+### `json_endpoint`
+
+If `true`, parses the request and response bodies as JSON and sets the
+`Content-Type` header to `application/json`.
+
+- **Type:** `Boolean`
+- **Default:** `false`
 
 ### `key`
 
@@ -121,6 +131,43 @@ The simplest usage of this task is to make a GET request by only setting the
         base_url: 'http://httpbin.org/get'
 
   return: $request
+  ```
+
+### Making a JSON request
+
+If you are making a request to a JSON endpoint, you can configure the task to
+automatically convert the body to JSON, set the request headers, and parse
+the response body as JSON. To enable this behavior, set the `json_endpoint`
+parameter to `true`.
+
+- **Unix-like shell command**
+
+  ```shell
+  $ bolt task run http_request --targets localhost base_url=http://httpbin.org/get json_endpoint=true
+  ```
+
+- **PowerShell command**
+
+  ```powershell
+  > Invoke-BoltTask -Name 'http_request' -Targets 'localhost' base_url=http://httpbin.org/get json_endpoint=true
+  ```
+
+- **Plan step**
+
+  ```yaml
+  parameters:
+    targets:
+      type: TargetSpec
+
+  steps:
+    - name: request
+      task: http_request
+      targets: $targets
+      parameters:
+        base_url: 'http://httpbin.org/get'
+        json_endpoint: true
+
+  return: $request.first.value['body']['headers']['User-Agent']
   ```
 
 ### Adding headers

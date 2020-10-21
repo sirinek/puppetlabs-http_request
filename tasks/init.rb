@@ -3,6 +3,7 @@
 
 require_relative '../../ruby_task_helper/files/task_helper'
 
+require 'json'
 require 'net/http'
 require 'openssl'
 
@@ -11,8 +12,8 @@ class HTTPRequest < TaskHelper
     # Get all of the request parameters in order...
     method   = opts[:method].capitalize.to_sym
     uri      = URI.parse(opts[:base_url]) + (opts[:path] || '')
-    body     = opts[:body]
-    headers  = opts[:headers] || {}
+    body     = format_body(opts[:body], opts[:json_endpoint])
+    headers  = format_headers(opts[:headers], opts[:json_endpoint])
     ssl_opts = {
       cacert: opts[:cacert],
       cert:   opts[:cert],
@@ -42,7 +43,7 @@ class HTTPRequest < TaskHelper
 
     # Return the body and status code of the response.
     {
-      body:        encode_body(response.read_body, response.type_params['charset']),
+      body:        parse_response_body(response, opts[:json_endpoint]),
       status_code: response.code.to_i
     }
   rescue TaskHelper::Error => e
@@ -80,11 +81,52 @@ class HTTPRequest < TaskHelper
     )
   end
 
+  # Parses the response body.
+  def parse_response_body(response, json)
+    body = encode_body(response.read_body, response.type_params['charset'])
+
+    if json
+      begin
+        body = JSON.parse(body)
+      rescue JSON::ParserError => e
+        raise TaskHelper::Error.new(
+          "Unable to parse response body as JSON: #{e.message}",
+          'http_request/json-parse-error'
+        )
+      end
+    end
+
+    body
+  end
+
   # Forces the response body to the specified encoding and
   # then encodes as UTF-8.
   def encode_body(body, charset)
     body = body.force_encoding(charset) if charset
     body.encode('UTF-8')
+  end
+
+  # Formats the body. If the request is a JSON request, this will
+  # convert the body to JSON.
+  def format_body(body, json)
+    if json && !body.is_a?(String) && !body.nil?
+      body.to_json
+    elsif body.is_a?(String) || body.nil?
+      body
+    else
+      raise TaskHelper::Error.new(
+        'body must be a String when json_endpoint is false',
+        'http_request/body-type-error'
+      )
+    end
+  end
+
+  # Formats the headers. If the request is a JSON request, this will
+  # set the Content-Type header to application/json. This can be
+  # overridden by a user.
+  def format_headers(headers, json)
+    default = json ? { 'Content-Type' => 'application/json' } : {}
+    default.merge(headers || {})
   end
 
   # Parses the redirect URL and expands it relative to the

@@ -7,8 +7,8 @@
       "type": "String[1]"
     },
     "body": {
-      "description": "The request body.",
-      "type": "Optional[String]"
+      "description": "The request body. If json_endpoint is true, must be able representable as JSON. If json_endpoint is false, must be a string.",
+      "type": "Optional[Data]"
     },
     "cacert": {
       "description": "An absolute path to the CA certificate.",
@@ -26,6 +26,11 @@
     "headers": {
       "description": "A map of headers to add to the payload.",
       "type": "Optional[Hash[String, String]]"
+    },
+    "json_endpoint": {
+      "description": "If true, parses the request and response bodies as JSON and sets the Content-Type header to application/json.",
+      "type": "Boolean",
+      "default": false
     },
     "key": {
       "description": "An absolute path to the RSA keypair.",

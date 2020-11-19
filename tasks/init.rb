@@ -15,9 +15,10 @@ class HTTPRequest < TaskHelper
     body     = format_body(opts[:body], opts[:json_endpoint])
     headers  = format_headers(opts[:headers], opts[:json_endpoint])
     ssl_opts = {
-      cacert: opts[:cacert],
-      cert:   opts[:cert],
-      key:    opts[:key]
+      cacert:     opts[:cacert],
+      cert:       opts[:cert],
+      key:        opts[:key],
+      verify_ssl: opts[:verify_ssl]
     }
 
     redirects = 0
@@ -60,7 +61,7 @@ class HTTPRequest < TaskHelper
     # Use SSL if requesting a secure connection
     if uri.scheme == 'https'
       client.use_ssl     = true
-      client.verify_mode = OpenSSL::SSL::VERIFY_PEER
+      client.verify_mode = opts[:verify_ssl] ? OpenSSL::SSL::VERIFY_PEER : OpenSSL::SSL::VERIFY_NONE
       client.ca_file     = opts[:cacert] if opts[:cacert]
       client.cert        = OpenSSL::X509::Certificate.new(File.read(opts[:cert])) if opts[:cert]
       client.key         = OpenSSL::PKey::RSA.new(opts[:key]) if opts[:key]

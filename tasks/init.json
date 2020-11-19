@@ -49,6 +49,11 @@
     "path": {
       "description": "The path to append to the base_url.",
       "type": "Optional[String[1]]"
+    },
+    "verify_ssl": {
+      "description": "If true, verify SSL certificates.",
+      "type": "Boolean",
+      "default": true
     }
   },
   "files": [
